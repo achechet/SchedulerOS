@@ -1,0 +1,148 @@
+/*###ICF### Section handled by ICF editor, don't touch! ****/
+/*-Editor annotation file-*/
+/* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
+/*-Specials-*/
+define symbol __ICFEDIT_intvec_start__ = 0x08000000;
+/*-Memory Regions-*/
+define symbol __ICFEDIT_region_ROM_start__    = 0x08000000;
+define symbol __ICFEDIT_region_ROM_end__      = 0x080FFFFF;
+define symbol __ICFEDIT_region_RAM_start__    = 0x20000000;
+define symbol __ICFEDIT_region_RAM_end__      = 0x20017FFF;
+define symbol __ICFEDIT_region_SRAM2_start__  = 0x10000000;
+define symbol __ICFEDIT_region_SRAM2_end__    = 0x10007FFF;
+
+/*-Sizes-*/
+define symbol __ICFEDIT_size_cstack__ = 0x400;
+define symbol __ICFEDIT_size_heap__   = 0x200;
+/**** End of ICF editor section. ###ICF###*/
+
+
+/* Define a memory region that covers the entire 4 GB addressible space of the
+processor. */
+define memory mem with size = 4G;
+
+/* Define a region for the on-chip flash. */
+define region ROM_region      = mem:[from __ICFEDIT_region_ROM_start__   to __ICFEDIT_region_ROM_end__];
+
+/* Define a region for the on-chip SRAM. */
+define region RAM_region      = mem:[from __ICFEDIT_region_RAM_start__   to __ICFEDIT_region_RAM_end__];
+define region SRAM2_region    = mem:[from __ICFEDIT_region_SRAM2_start__   to __ICFEDIT_region_SRAM2_end__];
+
+define block CSTACK    with alignment = 8, size = __ICFEDIT_size_cstack__   { };
+define block HEAP      with alignment = 8, size = __ICFEDIT_size_heap__     { };
+
+/* Indicate that the read/write values should be initialized by copying from
+flash. */
+initialize by copy { readwrite };
+
+/* Indicate that the noinit values should be left alone. */
+do not initialize  { section .noinit };
+
+
+/* Define a block for the kernel's functions.  - 0x188 because the first part of
+the 16K is taken by the interrupt vectors. */
+define block __kernel_functions_block__ with alignment = 8, size = 0x4000 - 0x188 { section __kernel_functions__ };
+
+/* Place the interrupt vectors at the required address, followed by the kernel's
+functions. */
+place at address mem:__ICFEDIT_intvec_start__ { readonly section .intvec, block __kernel_functions_block__ };
+
+/* Place the remainder of the read-only items into flash. */
+define block __user_rom_block__ with alignment = 8 { readonly };
+place in ROM_region   { block __user_rom_block__ };
+
+
+/* Define a block for the kernel's data. */
+define block __kernel_data_block__ with alignment = 0x800, size = 0x800 { section __kernel_data__,
+																		section __kernel_nz_data__ };
+
+/* Define a block for the Maths Test task data. */
+define block __maths_test_data_block__ with alignment = 0x40, size = 0x40 { section __maths_test_data__ };
+
+/* Define a block for the Block Q task data. */
+define block __block_q_data_block__ with alignment = 0x80, size = 0x80 { section __block_q_data__ };
+
+/* Define a block for the Block Time Test task data. */
+define block __block_tim_data_block__ with alignment = 0x20, size = 0x20 { section __block_tim_data__ };
+
+/* Define a block for the ComTest Task data. */
+define block __comtest_task_data_block__ with alignment = 0x80, size = 0x80 { section __comtest_task_data__,
+                                                                              section __comtest_task_zero_data__ };
+
+/* Define a block for the Counting Semaphore Task data. */
+define block __counting_semaphore_task_data_block__ with alignment = 0x40, size = 0x40 { section __counting_semaphore_task_data__,
+                                                                                         section __counting_semaphore_task_zero_data__ };
+
+/* Define a block for the Create Delete Test task data. */
+define block __create_delete_data_block__ with alignment = 0x20, size = 0x20 { section __create_delete_data__ };
+
+/* Define a block for the Dynamic Task data. */
+define block __dynamic_task_data_block__ with alignment = 0x40, size = 0x40 { section __dynamic_task_data__ };
+
+/* Define a block for the LED Task data. */
+define block __led_task_data_block__ with alignment = 0x20, size = 0x20 { section __led_task_data__ };
+
+/* Define a block for the Poll Q task data. */
+define block __poll_q_data_block__ with alignment = 0x20, size = 0x20 { section __poll_q_data__ };
+
+/* Define a block for the Binary Semaphore Task data. */
+define block __binary_semaphore_task_data_block__ with alignment = 0x40, size = 0x40 { section __binary_semaphore_task_data__ };
+
+/* Define a block for the Timer Demo Task data. */
+define block __timer_demo_data_block__ with alignment = 0x800, size = 0x800 { section __timer_demo_data__,
+                                                                              section __timer_demo_zero_data__ };
+																				   
+/* Define a block for the Task Notify data. */
+define block __task_notify_data_block__ with alignment = 0x20, size = 0x20
+{
+	section __task_notify_data__,
+	section __task_notify_zero_data__
+};
+
+/* Define a block for the Task Mutex data. */
+define block __rec_mutex_data_block__ with alignment = 0x100, size = 0x100
+{
+	section __rec_mutex_data__
+};
+
+/* Define a block for the Idle Hook data. */
+define block __idle_hook_data_block__ with alignment = 0x20, size = 0x20
+{
+	section __idle_hook_data__,
+	section __idle_hook_zero_data__
+};																				   
+
+/* Place the RAM vector table at the start of SRAM, followed by the kernel's
+data. */
+place at start of RAM_region { block __kernel_data_block__ };
+
+place in RAM_region   { readwrite,
+						block __maths_test_data_block__,
+						block __block_q_data_block__,
+						block __block_tim_data_block__,
+						block __comtest_task_data_block__,
+						block __counting_semaphore_task_data_block__,
+						block __create_delete_data_block__,
+						block __dynamic_task_data_block__,
+						block __led_task_data_block__,
+						block __poll_q_data_block__,
+						block __binary_semaphore_task_data_block__,
+						block __timer_demo_data_block__,
+						block __task_notify_data_block__,
+                        block __rec_mutex_data_block__,
+						block __idle_hook_data_block__,
+                        block CSTACK,
+						block HEAP
+					  };
+
+/* Export symbols required by C code. */
+define symbol lnkStartFlashAddress	= 0x00000000; // for alignment
+define symbol lnkEndFlashAddress	= __ICFEDIT_region_ROM_end__;
+
+export symbol lnkStartFlashAddress;
+export symbol lnkEndFlashAddress;
+
+export symbol __ICFEDIT_intvec_start__;
+export symbol __ICFEDIT_size_cstack__;
+export symbol __ICFEDIT_region_ROM_start__;
+export symbol __ICFEDIT_region_ROM_end__;
