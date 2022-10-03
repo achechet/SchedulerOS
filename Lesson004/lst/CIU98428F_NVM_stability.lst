@@ -1,0 +1,123 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000         
+    3 00000000         ;;/*****************************************************
+                       
+    4 00000000         ;; Copyright(C),CEC Huada Electronic Design Co.,Ltd.
+    5 00000000         
+    6 00000000         ;; File name:  CIU98428F_API_NVM_STABILITY.s
+    7 00000000         ;; Author:   wangyun   
+    8 00000000         ;; Version:  V1.0
+    9 00000000         ;; Date:       2014-12-04
+   10 00000000         ;; Description: NVM Stability function
+   11 00000000         ;; History: 
+   12 00000000         ;;    V1.0 2014-12-04 initial version
+   13 00000000         ;;******************************************************
+                       /
+   14 00000000         
+   15 00000000 50007084 
+                       SYSNVMMODE
+                               EQU              0x50007084
+   16 00000000         
+   17 00000000                 PRESERVE8
+   18 00000000                 THUMB
+   19 00000000         
+   20 00000000                 IMPORT           chkWrSwitch
+   21 00000000                 AREA             SETSYSNVMMODE, CODE, READONLY
+   22 00000000                 EXPORT           setWrMode
+   23 00000000         
+   24 00000000         setWrMode
+   25 00000000 B500            PUSH             {LR}
+   26 00000002         
+   27 00000002 2300            MOVS             R3,#0
+   28 00000004 F383 8800       MSR              APSR,R3
+   29 00000008 0002            MOVS             R2,R0
+   30 0000000A 4904            LDR              R1,=SYSNVMMODE
+   31 0000000C         
+   32 0000000C B406            PUSH             {R1-R2}
+   33 0000000E F7FF FFFE       BL               chkWrSwitch
+   34 00000012 BC06            POP              {R1-R2}
+   35 00000014         
+   36 00000014 D100            BNE              no_opt
+   37 00000016 600A            STR              R2,[R1]     ;STR is not conditi
+                                                            onal instruction on
+                                                             the Cortex-M0 proc
+                                                            essor.
+   38 00000018         no_opt
+   39 00000018 BC08            POP              {R3}
+   40 0000001A         
+   41 0000001A 4718            BX               R3
+   42 0000001C                 END
+              50007084 
+Command Line: --debug --xref --cpu=SC000 --bi --apcs=interwork --depend=.\obj\c
+iu98428f_nvm_stability.d -o.\obj\ciu98428f_nvm_stability.o -IC:\Keil\ARM\RV31\I
+NC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Device\ARM\ARMSC000\Include --pred
+efine="__EVAL SETA 1" --list=.\lst\ciu98428f_nvm_stability.lst API\CIU98428F_NV
+M_stability.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+SETSYSNVMMODE 00000000
+
+Symbol: SETSYSNVMMODE
+   Definitions
+      At line 21 in file API\CIU98428F_NVM_stability.s
+   Uses
+      None
+Comment: SETSYSNVMMODE unused
+no_opt 00000018
+
+Symbol: no_opt
+   Definitions
+      At line 38 in file API\CIU98428F_NVM_stability.s
+   Uses
+      At line 36 in file API\CIU98428F_NVM_stability.s
+Comment: no_opt used once
+setWrMode 00000000
+
+Symbol: setWrMode
+   Definitions
+      At line 24 in file API\CIU98428F_NVM_stability.s
+   Uses
+      At line 22 in file API\CIU98428F_NVM_stability.s
+Comment: setWrMode used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+SYSNVMMODE 50007084
+
+Symbol: SYSNVMMODE
+   Definitions
+      At line 15 in file API\CIU98428F_NVM_stability.s
+   Uses
+      At line 30 in file API\CIU98428F_NVM_stability.s
+Comment: SYSNVMMODE used once
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+chkWrSwitch 00000000
+
+Symbol: chkWrSwitch
+   Definitions
+      At line 20 in file API\CIU98428F_NVM_stability.s
+   Uses
+      At line 33 in file API\CIU98428F_NVM_stability.s
+Comment: chkWrSwitch used once
+1 symbol
+338 symbols in table

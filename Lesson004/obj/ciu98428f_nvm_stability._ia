@@ -1,0 +1,6 @@
+--cpu SC000 --bi --pd "__EVAL SETA 1" -g --apcs=interwork 
+-I C:\Keil\ARM\RV31\INC
+-I C:\Keil\ARM\CMSIS\Include
+-I C:\Keil\ARM\Device\ARM\ARMSC000\Include
+
+--list .\lst\ciu98428f_nvm_stability.lst --xref -o .\obj\ciu98428f_nvm_stability.o --depend .\obj\ciu98428f_nvm_stability.d "API\CIU98428F_NVM_stability.s"

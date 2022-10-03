@@ -1,0 +1,6 @@
+-c --cpu SC000 -D__EVAL --bi -g -O0 --apcs=interwork -I.\INC -I.\API
+-I C:\Keil\ARM\RV31\INC
+-I C:\Keil\ARM\CMSIS\Include
+-I C:\Keil\ARM\Device\ARM\ARMSC000\Include
+
+-o .\obj\main.o --list_dir ".\\lst\\" --list --omf_browse .\obj\main.crf --depend .\obj\main.d "SRC\main.c"

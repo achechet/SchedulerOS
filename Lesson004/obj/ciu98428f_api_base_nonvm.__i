@@ -1,0 +1,6 @@
+-c --cpu SC000 -D__EVAL --bi -g -O0 --apcs=interwork -I.\INC -I.\API
+-I C:\Keil\ARM\RV31\INC
+-I C:\Keil\ARM\CMSIS\Include
+-I C:\Keil\ARM\Device\ARM\ARMSC000\Include
+
+-o .\obj\ciu98428f_api_base_nonvm.o --list_dir ".\\lst\\" --list --omf_browse .\obj\ciu98428f_api_base_nonvm.crf --depend .\obj\ciu98428f_api_base_nonvm.d "API\CIU98428F_API_Base_NoNVM.c"

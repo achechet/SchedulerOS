@@ -1,0 +1,678 @@
+L 1 "API\CIU98428F_API_Base_NoNVM.c"
+N/*****************************************************
+N Copyright(C),CEC Huada Electronic Design Co.,Ltd.
+N 
+N File name: CIU98428F_API_Base_NoNVM.c
+N Author:    
+N Version:	
+N Date:      
+N Description:   CIU98428F User API Function
+N History:	
+N
+N******************************************************/
+N#include "CIU98428F_SFR_C.H"
+L 1 ".\INC\CIU98428F_SFR_C.H" 1
+N/******************** (C) COPYRIGHT 2015 HED *************************************
+N* File Name          : CIU98428F_SFR_C.h
+N* Author             : zhangyj
+N* Date First Issued  : 2015-01-16
+N* Description        : 
+N// ------------------------------------------------------------
+N// Modification History:
+N// Version    Date       Author    Modification Description
+N// V0.0      2015-01-16  zhangyj   
+N*********************************************************************************/
+N
+N#ifndef __IO_CIU98428F_H
+N#define __IO_CIU98428F_H
+N
+N/********************************************************************************
+N                      AMBA IP AHB Peripherals Addresse
+N********************************************************************************/
+N/********************************************************************************
+N                             DES Regsiter
+N********************************************************************************/
+N#define DESCON               (*((volatile unsigned long *)(0x50000000 + 0x00 )))
+N#define DESMOD               (*((volatile unsigned long *)(0x50000000 + 0x04 )))
+N#define DESIV                ((volatile unsigned long *)(0x50000000 + 0x08 )) //64bit
+N#define DESDATA              ((volatile unsigned long *)(0x50000000 + 0x10 )) //64bit
+N#define DESKEY1              ((volatile unsigned long *)(0x50000000 + 0x18 )) //64bit
+N#define DESKEY2              ((volatile unsigned long *)(0x50000000 + 0x20 )) //64bit
+N
+N
+N/********************************************************************************
+N                              RNG2 Regsiter
+N********************************************************************************/
+N#define RNG2STR              (*((volatile unsigned long *)(0x50003800 + 0x04 )))
+N#define RNG2OUT              (*((volatile unsigned long *)(0x50003800 + 0x08 )))
+N
+N
+N/********************************************************************************
+N                             CRC Regsiter
+N********************************************************************************/
+N#define CRCCSR               (*((volatile unsigned long *)(0x50005000 + 0x00 )))
+N#define CRCDATA              (*((volatile unsigned long *)(0x50005000 + 0x04 )))
+N#define CRCIV                (*((volatile unsigned long *)(0x50005000 + 0x08 )))
+N
+N
+N/********************************************************************************
+N                             SystemController Regsiter
+N********************************************************************************/
+N// NVM
+N#define SYSNVMSTATUS         (*((volatile unsigned long *)(0x50007000 + 0x80 )))
+N#define SYSNVMMODE           (*((volatile unsigned long *)(0x50007000 + 0x84 )))
+N#define SYSNVMCON            (*((volatile unsigned long *)(0x50007000 + 0x88 )))
+N#define SYSNVMPBSTADDR       (*((volatile unsigned long *)(0x50007000 + 0x98 )))
+N#define SYSNVMPBLEN          (*((volatile unsigned long *)(0x50007000 + 0x9C )))
+N#define SYSNVMSDPK1          (*((volatile unsigned long *)(0x50007000 + 0xA0 )))
+N#define SYSNVMSDPK2          (*((volatile unsigned long *)(0x50007000 + 0xA4 )))
+N#define SYSNVMSDPK3          (*((volatile unsigned long *)(0x50007000 + 0xA8 )))
+N
+N
+N// RSTMU
+N#define SYSRSTFLAG           (*((volatile unsigned long *)(0x50007000 + 0x184)))
+N#define SYSRSTCFG            (*((volatile unsigned long *)(0x50007000 + 0x188)))
+N
+N
+N// CKMU
+N#define SYSCLKEN             (*((volatile unsigned long *)(0x50007000 + 0x200)))
+N#define SYSCLKCLR            (*((volatile unsigned long *)(0x50007000 + 0x204)))
+N#define SYSCLKCFG            (*((volatile unsigned long *)(0x50007000 + 0x208)))
+N
+N
+N// POWMU
+N#define SYSPCON1             (*((volatile unsigned long *)(0x50007000 + 0x280)))
+N
+N
+N// INTC
+N#define SYSIRQLR             (*((volatile unsigned long *)(0x50007000 + 0x380)))
+N#define SYSNMICON            (*((volatile unsigned long *)(0x50007000 + 0x384)))
+N
+N
+N// SEC
+N#define SECCTR               (*((volatile unsigned long *)(0x50007000 + 0x400)))
+N#define SECHWRSTFLG          (*((volatile unsigned long *)(0x50007000 + 0x41C)))
+N#define SECBUSY              (*((volatile unsigned long *)(0x50007000 + 0x420)))
+N#define SECRBCLR             (*((volatile unsigned long *)(0x50007000 + 0x424)))
+N#define SECREGPRT            (*((volatile unsigned long *)(0x50007000 + 0x428)))
+N#define SECRNDSTOP           (*((volatile unsigned long *)(0x50007000 + 0x434)))
+N
+N
+N/********************************************************************************
+N                             TIMER Regsiter
+N********************************************************************************/
+N#define TIMER0LOAD           (*((volatile unsigned long *)(0x40000800 + 0x00 )))
+N#define TIMER0VALUE          (*((volatile unsigned long *)(0x40000800 + 0x04 )))
+N#define TIMER0CONTROL        (*((volatile unsigned long *)(0x40000800 + 0x08 )))
+N#define TIMER0IS             (*((volatile unsigned long *)(0x40000800 + 0x0C )))
+N#define TIMER1LOAD           (*((volatile unsigned long *)(0x40000800 + 0x20 )))
+N#define TIMER1VALUE          (*((volatile unsigned long *)(0x40000800 + 0x24 )))
+N#define TIMER1CONTROL        (*((volatile unsigned long *)(0x40000800 + 0x28 )))
+N#define TIMER1IS             (*((volatile unsigned long *)(0x40000800 + 0x2C )))
+N
+N/********************************************************************************
+N                             SCI Regsiter
+N********************************************************************************/
+N#define SCISBUF              (*((volatile unsigned long *)(0x40001000 + 0x00 )))
+N#define SCISCON              (*((volatile unsigned long *)(0x40001000 + 0x04 )))
+N#define SCISSR               (*((volatile unsigned long *)(0x40001000 + 0x08 )))
+N#define SCISCNT              (*((volatile unsigned long *)(0x40001000 + 0x0C )))
+N#define SCITXFCR             (*((volatile unsigned long *)(0x40001000 + 0x10 )))
+N#define SCIRXFCR             (*((volatile unsigned long *)(0x40001000 + 0x14 )))
+N#define SCITA1               (*((volatile unsigned long *)(0x40001000 + 0x18 )))
+N#define SCIS60CON            (*((volatile unsigned long *)(0x40001000 + 0x1C )))
+N
+N
+N/********************************************************************************
+N                             RNG Regsiter
+N********************************************************************************/
+N#define RNG1STR              (*((volatile unsigned long *)(0x40002800 + 0x30 )))
+N#define RNG1OUT              (*((volatile unsigned long *)(0x40002800 + 0x34 )))
+N#define RNG1TRNGTST          (*((volatile unsigned long *)(0x40002800 + 0x100)))
+N#define RNG1TRNGTDO          (*((volatile unsigned long *)(0x40002800 + 0x104)))
+N
+N/********************************************************************************
+N                             GPIO Regsiter
+N********************************************************************************/
+N#define GPIODATA              (*((volatile unsigned long *)(0x40003000 + 0x00 )))
+N#define GPIODIR               (*((volatile unsigned long *)(0x40003000 + 0x04 )))
+N
+N
+N/********************************************************************************
+N                             PPB Regsiter
+N********************************************************************************/
+N#define ACTLR                 (*((volatile unsigned long *)( 0xE000E008	)))
+N#define NVIC_ISER             (*((volatile unsigned long *)( 0xE000E100	)))
+N#define NVIC_ICER             (*((volatile unsigned long *)( 0xE000E180	)))
+N#define NVIC_ISPR             (*((volatile unsigned long *)( 0xE000E200	)))
+N#define NVIC_ICPR             (*((volatile unsigned long *)( 0xE000E280	)))
+N#define NVIC_IPR0             (*((volatile unsigned long *)( 0xE000E400	)))
+N#define NVIC_IPR1             (*((volatile unsigned long *)( 0xE000E404	)))
+N#define NVIC_IPR2             (*((volatile unsigned long *)( 0xE000E408	)))
+N#define NVIC_IPR3             (*((volatile unsigned long *)( 0xE000E40C	)))
+N#define NVIC_IPR4             (*((volatile unsigned long *)( 0xE000E410	)))
+N#define NVIC_IPR5             (*((volatile unsigned long *)( 0xE000E414	)))
+N#define NVIC_IPR6             (*((volatile unsigned long *)( 0xE000E418	)))
+N#define NVIC_IPR7             (*((volatile unsigned long *)( 0xE000E41C	)))
+N#define CPUID                 (*((volatile unsigned long *)( 0xE000ED00	)))
+N#define ICSR                  (*((volatile unsigned long *)( 0xE000ED04	)))
+N#define VTOR                  (*((volatile unsigned long *)( 0xE000ED08	)))
+N#define AIRCR                 (*((volatile unsigned long *)( 0xE000ED0C	)))
+N#define SCR                   (*((volatile unsigned long *)( 0xE000ED10	)))
+N#define CCR                   (*((volatile unsigned long *)( 0xE000ED14	)))
+N#define SHPR2                 (*((volatile unsigned long *)( 0xE000ED1C	)))
+N#define SHPR3                 (*((volatile unsigned long *)( 0xE000ED20	)))
+N#define SFCR                  (*((volatile unsigned long *)( 0xE000EF90	)))
+N
+N/********************************************************************************
+N                             Interrupt Source
+N********************************************************************************/
+N#define     IRQ_TMR0                0
+N#define     IRQ_TMR1                1
+N#define     IRQ_RNG1                7
+N#define     IRQ_7816TX              9
+N#define     IRQ_7816RX              10
+N#define     IRQ_7816FIFO            11
+N
+N#endif  /* End of __IO_CIU98428F_H */
+L 13 "API\CIU98428F_API_Base_NoNVM.c" 2
+N
+N#define FACTORY_CODE_SADDR 		0x1FFFFE00
+N
+N#define STDBY_IS_VALID                      (((SCISSR & 0x08) == 0) && ((SCIRXFCR & 0x02) != 0))
+N/* MACRO DEFINE */
+N/* 7816 Interface */
+N#define SCI_START_SETU_COUNTER 				SET_REG_BIT(SCISSR,SCISSR_SETU)
+N#define SCI_START_SETU_COUNTER_IS_RUNNING 	REG_BIT_IS_SET(SCISSR,SCISSR_SETU)
+N#define SCI_IS_BUSY 					    (SCISSR & ((1 << SCISSR_RB)|(1 << SCISSR_TB)))
+N#define CLEAR_SCI_AUTO_RETRY_LIMIT 		    (SCISCON &= ~(3 << SCISCON_RCNT_0))
+N#define SET_SCI_AUTO_RETRY_LIMIT(num) 	    (SCISCON |= ((num - 2) & 0x3))
+N#define ENABLE_SCI 						    SET_REG_BIT(SCISCON,SCISCON_SE)
+N#define DISABLE_SCI 					    CLEAR_REG_BIT(SCISCON,SCISCON_SE) 
+N/*7816 send data*/
+N#define SCI_DATA_IS_SENDING 			    REG_BIT_IS_CLEAR(SCISSR,SCISSR_TI)
+N#define CLEAR_SCI_TI 					    CLEAR_REG_BIT(SCISSR,SCISSR_TI)
+N#define SCI_PARITY_IS_ERROR 			    REG_BIT_IS_SET(SCISSR,SCISSR_PE)
+N#define CLEAR_SCI_PARITY_ERROR 			    CLEAR_REG_BIT(SCISSR,SCISSR_PE)
+N#define FLUSH_SCI_TX_FIFO 				    SET_REG_BIT(SCITXFCR,SCITXFCR_FLUSH_TX_FIFO) 
+N#define FLUSH_SCI_TX_FIFO_IS_RUNNING 	    REG_BIT_IS_SET(SCITXFCR, SCITXFCR_FLUSH_TX_FIFO)
+N/*7816 receive data*/
+N#define CLEAR_SCI_RI 					    CLEAR_REG_BIT(SCISSR,SCISSR_RI)
+N#define SCIRXFCR_RX_IS_EMPTY  			    REG_BIT_IS_SET(SCIRXFCR,SCIRXFCR_RX_EMPTY)
+N
+N/* Random */
+N#define ENABLE_RNG1_CLK 		            SET_REG_BIT(SYSCLKEN,SYSCLKEN_RNG1EN)
+N#define DISABLE_RNG1_CLK 		            SET_REG_BIT(SYSCLKCLR,SYSCLKEN_RNG1EN)
+N#define RANDOM_NUM_IS_OK 		            REG_BIT_IS_SET(RNG1STR,RNG1STR_RNGRDY)
+N#define RANDOM_NUM_IS_NOT_OK 	            REG_BIT_IS_CLEAR(RNG1STR,RNG1STR_RNGRDY) 
+N#define RANDOM_NUM_IS_TIMEOUT 	            REG_BIT_IS_SET(RNG1STR,RNG1STR_TIMEOUT)
+N
+N#define SET_REG_BIT(reg,bit) 			    (reg |= (1 << (bit)))
+N#define CLEAR_REG_BIT(reg,bit) 			    (reg &= ~(1 << (bit)))
+N#define REG_BIT_IS_SET(reg,bit) 		    (reg & (1 << (bit)))
+N#define REG_BIT_IS_CLEAR(reg,bit) 		    ((reg & (1 << (bit))) == 0)
+N#define SET_BIT(bit) 					    (0x1 << (bit))
+N#define CLEAR_BIT(bit) 					    (~(0x1 << (bit)))
+N
+N//SCI SFR
+N//SCISCON bits
+Ntypedef enum 
+N{
+N	SCISCON_RCNT_0 = 0,
+N	SCISCON_RCNT_1 = 1,
+N	SCISCON_PARITY = 2 ,
+N	SCISCON_IVC = 3,
+N	SCISCON_EGB = 4,
+N	SCISCON_PS = 5,
+N	SCISCON_SE = 6,
+N    SCISCON_WTC = 7,
+N    SCISCON_AWTS = 8,
+N    SCISCON_SAFB = 10,
+N    SCISCON_RTS = 11,
+N} SCISCON_BITS;
+N
+N//SCISSR bits
+Ntypedef enum 
+N{
+N	SCISSR_OE = 0,
+N	SCISSR_PE = 1,
+N	SCISSR_RI = 2 ,
+N	SCISSR_RB = 3,
+N	SCISSR_TI = 4,
+N	SCISSR_TB = 5,
+N	SCISSR_SETU = 6,
+N} SCISSR_BITS;
+N
+Ntypedef enum 
+N{
+N	SCIRXFCR_FLUSH_RX_FIFO = 0,
+N	SCIRXFCR_RX_EMPTY = 1,
+N	SCIRXFCR_WATER_LEVEL = 2 ,
+N} SCIRXFCR_BITS;
+N
+Ntypedef enum 
+N{
+N	SCITXFCR_FLUSH_TX_FIFO = 0,
+N	SCITXFCR_TX_FULL = 1,
+N} SCITXFCR_BITS;
+N
+N//RNG
+Ntypedef enum 
+N{
+N	RNG1STR_RNGRDY = 0,
+N	RNG1STR_TIMEOUT = 1,
+N}  RNG1STR_BITS;
+N
+N//CRC
+Ntypedef enum
+N{
+N	CRCCSR_CRC_ST = 0,
+N	CRCCSR_INPUT_REV = 1,
+N	CRCCSR_OUTPUT_REV = 2,
+N	CRCCSR_OUTPUT_NOT = 3,
+N	CRCCSR_WIDTH_0 = 4,
+N	CRCCSR_WIDTH_1 = 5,
+N} CRCCSR_BITS;	
+N
+N/* 7816 Interface */
+N/************************************************* 
+N  Function:      HED_T0_SendNBytes (unsigned char * DataAddr , unsigned int DataLen)
+N  Description:    
+N		send N bytes by 7816 interface(T = 0 protocol)			
+N  Calls: none    
+N  Input: 
+N		DataAddr:address of the data to be sent
+N		DataLen:lengtn of the data to be sent
+N  Output:нч
+N  Return:
+N		0x00:data sent successfully
+N		0x01:data sent fail
+N		0x02:API's para illegal  
+N  Others:none
+N*************************************************/ 
+Nunsigned int HED_T0_SendNBytes (unsigned char * DataAddr , unsigned int DataLen)
+N{
+N	if(DataLen == 0) 
+N	{
+N		return (2);
+N	}
+N
+N	//wait for idle time
+N	while(SCI_IS_BUSY); 
+X	while(((*((volatile unsigned long *)(0x40001000 + 0x08 ))) & ((1 << SCISSR_RB)|(1 << SCISSR_TB)))); 
+N
+N	//set auto retry time = 3
+N	CLEAR_SCI_AUTO_RETRY_LIMIT; 
+X	((*((volatile unsigned long *)(0x40001000 + 0x04 ))) &= ~(3 << SCISCON_RCNT_0)); 
+N	SET_SCI_AUTO_RETRY_LIMIT(3);
+X	((*((volatile unsigned long *)(0x40001000 + 0x04 ))) |= ((3 - 2) & 0x3));
+N
+N	while(DataLen--)
+N	{
+N		//write one byte to buffer a time
+N		SCISBUF = (*DataAddr++);
+X		(*((volatile unsigned long *)(0x40001000 + 0x00 ))) = (*DataAddr++);
+N		while(SCI_DATA_IS_SENDING);
+X		while((((*((volatile unsigned long *)(0x40001000 + 0x08 ))) & (1 << (SCISSR_TI))) == 0));
+N
+N		if(SCI_PARITY_IS_ERROR == 0 )
+X		if(((*((volatile unsigned long *)(0x40001000 + 0x08 ))) & (1 << (SCISSR_PE))) == 0 )
+N		{
+N			SCISSR = 0;							//clr SCI status
+X			(*((volatile unsigned long *)(0x40001000 + 0x08 ))) = 0;							
+N		}
+N		else
+N		{
+N			SCITXFCR = 0x01;					//clr trans FIFO control
+X			(*((volatile unsigned long *)(0x40001000 + 0x10 ))) = 0x01;					
+N			while ((SCITXFCR & 0x01) == 0x01);
+X			while (((*((volatile unsigned long *)(0x40001000 + 0x10 ))) & 0x01) == 0x01);
+N			SCISSR = 0;							//clr SCI status
+X			(*((volatile unsigned long *)(0x40001000 + 0x08 ))) = 0;							
+N			return (1);    	
+N		}
+N	}
+N	return (0);
+N}
+N/************************************************* 
+N  Function:     HED_T0_ReceiveNBytesRam(unsigned char *DataAddr, unsigned int DataLen)
+N  Description:    
+N		receive N bytes to RAM by 7816 interface(T = 0 protocol)			
+N  Calls: none              
+N  Input: 
+N		DataAddr:address to store the data received
+N		DataLen:bytes number of the data received
+N  Output:data received
+N  Return:none
+N  Others:none
+N*************************************************/ 
+Nvoid HED_T0_ReceiveNBytesRam(unsigned char *DataAddr, unsigned int DataLen)
+N{
+N	while(SCI_IS_BUSY);
+X	while(((*((volatile unsigned long *)(0x40001000 + 0x08 ))) & ((1 << SCISSR_RB)|(1 << SCISSR_TB))));
+N
+N	while(DataLen--)
+N	{	 	      
+N		//wait for data
+N		while(SCIRXFCR_RX_IS_EMPTY);
+X		while(((*((volatile unsigned long *)(0x40001000 + 0x14 ))) & (1 << (SCIRXFCR_RX_EMPTY))));
+N		(*DataAddr++) = (unsigned char)SCISBUF; 
+X		(*DataAddr++) = (unsigned char)(*((volatile unsigned long *)(0x40001000 + 0x00 ))); 
+N	}
+N}
+N
+N/* CRC */
+N#define CHANGE_CRC_WIDTH_FROM_32_TO_8  (CRCCSR |= (1<<5))
+N/************************************************* 
+N  Function:     unsigned short HED_CRC16(unsigned short IV, unsigned int DataLen, unsigned char *DataBuf, unsigned char type)
+N  Description:    
+N		Calculate the CRC-16 of a block of bytes in RAM/EE			
+N  Calls:              
+N  Input: 
+N		DataLen:bytes number of the block of
+N		IV: initial value
+N		DataBuf: the address of the block of data to be calculate 
+N		type: input and output data order type
+N  Output:none
+N  Return:2 bytes CRC result (big endian)
+N  Others:none 
+N*************************************************/ 
+Nunsigned short HED_CRC16(unsigned short IV, unsigned int DataLen, unsigned char *DataBuf, unsigned char type)
+N{
+N	unsigned int tmp_cnt = (unsigned int)DataBuf & 0x3; //distance to previous word border
+N	unsigned int div4_quotient, div4_mod;   //
+N
+N	if(DataLen == 0)
+N	{
+N		return IV;
+N	}
+N	
+N	CRCIV = IV;
+X	(*((volatile unsigned long *)(0x50005000 + 0x08 ))) = IV;
+N	CRCCSR = ((type&0x3)<<1) | SET_BIT(CRCCSR_CRC_ST);
+X	(*((volatile unsigned long *)(0x50005000 + 0x00 ))) = ((type&0x3)<<1) | (0x1 << (CRCCSR_CRC_ST));
+N
+N	if (DataLen <= 0x07)
+N	{
+N		div4_quotient = 0;
+N		div4_mod = DataLen;   
+N	}
+N	else
+N	{
+N		unsigned int curr_crccsr = CRCCSR;
+X		unsigned int curr_crccsr = (*((volatile unsigned long *)(0x50005000 + 0x00 )));
+N		if (tmp_cnt)
+N		{
+N			tmp_cnt = 0x4 - tmp_cnt;
+N			DataLen -= tmp_cnt;
+N			CHANGE_CRC_WIDTH_FROM_32_TO_8;   //CRCCSR[5:4] = 10 ->8
+X			((*((volatile unsigned long *)(0x50005000 + 0x00 ))) |= (1<<5));   
+N			while (tmp_cnt--)
+N			{
+N				CRCDATA = *DataBuf++;
+X				(*((volatile unsigned long *)(0x50005000 + 0x04 ))) = *DataBuf++;
+N			}
+N		}
+N		div4_quotient = DataLen >> 0x02; 
+N		div4_mod = DataLen & 0x3;   //word numbers
+N		CRCCSR = curr_crccsr;
+X		(*((volatile unsigned long *)(0x50005000 + 0x00 ))) = curr_crccsr;
+N
+N		if (div4_quotient)
+N		{
+N			unsigned int * tmp_databuf = (unsigned int *)DataBuf;
+N			while (div4_quotient--)
+N			{
+N				CRCDATA = *(unsigned int *)tmp_databuf++;//4 bytes one time
+X				(*((volatile unsigned long *)(0x50005000 + 0x04 ))) = *(unsigned int *)tmp_databuf++;
+N			}
+N			DataBuf = (unsigned char *)tmp_databuf;
+N		}
+N	}
+N
+N	if (div4_mod)	
+N	{
+N		CHANGE_CRC_WIDTH_FROM_32_TO_8;   //CRCCSR[5:4] = 10 ->8
+X		((*((volatile unsigned long *)(0x50005000 + 0x00 ))) |= (1<<5));   
+N		while (div4_mod--)
+N		{
+N			CRCDATA = *DataBuf++;
+X			(*((volatile unsigned long *)(0x50005000 + 0x04 ))) = *DataBuf++;
+N		}
+N
+N	}
+N
+N	return (unsigned short)CRCDATA;
+X	return (unsigned short)(*((volatile unsigned long *)(0x50005000 + 0x04 )));
+N}
+N
+N/* Serial Num */
+Nvoid HED_GetChipInfo(unsigned char *DataBuf, unsigned int FlashAddr, unsigned int DataLen)
+N{
+N	while(DataLen--)
+N	{
+N		*DataBuf++ = *(unsigned char *)FlashAddr;
+N		FlashAddr += 0x00000001;
+N	}
+N} 
+N/* Chip ID */
+N/************************************************* 
+N  Function:     void HED_GetChipId(unsigned char *ChipId)
+N  Description:  to get chip ID		
+N  Calls:              
+N  Input: ChipId:address to store the chip ID
+N  Output:none
+N  Return:
+N  Others:none
+N*************************************************/ 
+Nvoid HED_GetChipId(unsigned char *ChipId)
+N{
+N    unsigned char die_YX_position;
+N    unsigned char test_month;
+N    
+N    HED_GetChipInfo(ChipId,  FACTORY_CODE_SADDR+0x09, 1);	//Test year
+X    HED_GetChipInfo(ChipId,  0x1FFFFE00+0x09, 1);	
+N    
+N    /*get 2nd sequence number*/
+N    HED_GetChipInfo(&die_YX_position,  FACTORY_CODE_SADDR+0x17, 1);	//get die X/Y position on wafer
+X    HED_GetChipInfo(&die_YX_position,  0x1FFFFE00+0x17, 1);	
+N    HED_GetChipInfo(&test_month,  FACTORY_CODE_SADDR+0x0A, 1);	//get test_month
+X    HED_GetChipInfo(&test_month,  0x1FFFFE00+0x0A, 1);	
+N    die_YX_position = ((die_YX_position & 0x10) << 3) | ((die_YX_position & 0x01) << 6);    
+N    test_month = (test_month >> 4)*10 + (test_month & 0x0F);
+N    test_month &= 0x3F;
+N    ChipId[1] = die_YX_position | test_month;
+N    /*get 2nd sequence number*/
+N    
+N    HED_GetChipInfo(ChipId+2,  FACTORY_CODE_SADDR+0x1C, 1);	//lot number (highest byte)
+X    HED_GetChipInfo(ChipId+2,  0x1FFFFE00+0x1C, 1);	
+N    HED_GetChipInfo(ChipId+3,  FACTORY_CODE_SADDR+0x1D, 1);	//lot number (second byte)
+X    HED_GetChipInfo(ChipId+3,  0x1FFFFE00+0x1D, 1);	
+N    HED_GetChipInfo(ChipId+4,  FACTORY_CODE_SADDR+0x1E, 1);	//lot number (third byte)
+X    HED_GetChipInfo(ChipId+4,  0x1FFFFE00+0x1E, 1);	
+N    HED_GetChipInfo(ChipId+5,  FACTORY_CODE_SADDR+0x1F, 1);	//lot number (fourth byte)
+X    HED_GetChipInfo(ChipId+5,  0x1FFFFE00+0x1F, 1);	
+N    HED_GetChipInfo(ChipId+6,  FACTORY_CODE_SADDR+0x0B, 1);	//lot number (fifth byte)
+X    HED_GetChipInfo(ChipId+6,  0x1FFFFE00+0x0B, 1);	
+N    HED_GetChipInfo(ChipId+7,  FACTORY_CODE_SADDR+0x0C, 1);	//lot number (lowest byte)
+X    HED_GetChipInfo(ChipId+7,  0x1FFFFE00+0x0C, 1);	
+N    HED_GetChipInfo(ChipId+8,  FACTORY_CODE_SADDR+0x1A, 1);	//lot subsidiary number (high byte)
+X    HED_GetChipInfo(ChipId+8,  0x1FFFFE00+0x1A, 1);	
+N    HED_GetChipInfo(ChipId+9,  FACTORY_CODE_SADDR+0x1B, 1);	//lot subsidiary number (low byte)
+X    HED_GetChipInfo(ChipId+9,  0x1FFFFE00+0x1B, 1);	
+N    HED_GetChipInfo(ChipId+10,  FACTORY_CODE_SADDR+0x0D, 1); //wafer number
+X    HED_GetChipInfo(ChipId+10,  0x1FFFFE00+0x0D, 1); 
+N    HED_GetChipInfo(ChipId+11,  FACTORY_CODE_SADDR+0x0E, 1); //die X position on wafer
+X    HED_GetChipInfo(ChipId+11,  0x1FFFFE00+0x0E, 1); 
+N    HED_GetChipInfo(ChipId+12,  FACTORY_CODE_SADDR+0x0F, 1); //die Y position on wafer
+X    HED_GetChipInfo(ChipId+12,  0x1FFFFE00+0x0F, 1); 
+N}
+N
+N/* Factory Code */
+N/************************************************* 
+N  Function:     HED_GetFactoryCode(unsigned char *FactoryCode)
+N  Description: to get 32 bytes long FactoryCode	
+N  Calls:               
+N  Input: address to store the FactoryCode
+N  Output:none
+N  Return:
+N  Others: 
+N*************************************************/ 
+Nvoid HED_GetFactoryCode(unsigned char *FactoryCode)
+N{
+N	HED_GetChipInfo(FactoryCode, FACTORY_CODE_SADDR, 32);
+X	HED_GetChipInfo(FactoryCode, 0x1FFFFE00, 32);
+N}
+N
+N
+N/************************************************* 
+N  Function:     HED_GetRandom(unsigned char *RandomData,unsigned int DataLen)
+N  Description:	to get real random data 			
+N  Calls:               
+N  Input: 
+N		RandomData:the address in RAM to store the generated random data 
+N		DataLen:bytes number of the random data
+N  Output:real random data in RAM
+N  Return:none
+N  Others:none
+N*************************************************/ 
+Nvoid HED_GetRandom(unsigned char *RandomData,unsigned int DataLen)
+N{
+N	unsigned int div4_quotient, div4_mod;
+N	unsigned int *tmp_databuf;	
+N	unsigned int bakSYSCLKEN;
+N	unsigned int tmp_cnt = (unsigned int)RandomData & 0x3; //distance to previous word border
+N
+N	bakSYSCLKEN = SYSCLKEN;    
+X	bakSYSCLKEN = (*((volatile unsigned long *)(0x50007000 + 0x200)));    
+N	SYSCLKEN |= (1<<8); 
+X	(*((volatile unsigned long *)(0x50007000 + 0x200))) |= (1<<8); 
+N	
+N	if(RANDOM_NUM_IS_TIMEOUT)
+X	if(((*((volatile unsigned long *)(0x40002800 + 0x30 ))) & (1 << (RNG1STR_TIMEOUT))))
+N	{
+N		CLEAR_REG_BIT(RNG1STR,RNG1STR_TIMEOUT);
+X		((*((volatile unsigned long *)(0x40002800 + 0x30 ))) &= ~(1 << (RNG1STR_TIMEOUT)));
+N	}
+N
+N	if (DataLen <= 0x07)
+N	{
+N		div4_quotient = 0;
+N		div4_mod = DataLen;
+N	}
+N	else
+N	{
+N		if (tmp_cnt)
+N		{
+N			tmp_cnt = 0x4 - tmp_cnt;
+N			DataLen -= tmp_cnt;
+N			while (tmp_cnt--)
+N			{
+N				while(RANDOM_NUM_IS_NOT_OK);
+X				while((((*((volatile unsigned long *)(0x40002800 + 0x30 ))) & (1 << (RNG1STR_RNGRDY))) == 0));
+N				*(RandomData++) = (unsigned char)RNG1OUT;
+X				*(RandomData++) = (unsigned char)(*((volatile unsigned long *)(0x40002800 + 0x34 )));
+N			}
+N		}
+N		div4_quotient = DataLen >> 0x02; 
+N		div4_mod = DataLen & 0x3;//word numbers
+N
+N		if (div4_quotient)
+N		{
+N			tmp_databuf = (unsigned int *)RandomData;
+N			while (div4_quotient--)
+N			{
+N				while(RANDOM_NUM_IS_NOT_OK);
+X				while((((*((volatile unsigned long *)(0x40002800 + 0x30 ))) & (1 << (RNG1STR_RNGRDY))) == 0));
+N				*(tmp_databuf++) = RNG1OUT;
+X				*(tmp_databuf++) = (*((volatile unsigned long *)(0x40002800 + 0x34 )));
+N			}
+N			RandomData = (unsigned char *)tmp_databuf;
+N		}
+N	}
+N
+N	if (div4_mod)	
+N	{
+N		while (div4_mod--)
+N		{
+N			while(RANDOM_NUM_IS_NOT_OK);
+X			while((((*((volatile unsigned long *)(0x40002800 + 0x30 ))) & (1 << (RNG1STR_RNGRDY))) == 0));
+N			*(RandomData++) = (unsigned char)RNG1OUT; 
+X			*(RandomData++) = (unsigned char)(*((volatile unsigned long *)(0x40002800 + 0x34 ))); 
+N		}
+N	}
+N	SYSCLKCLR = (~bakSYSCLKEN);
+X	(*((volatile unsigned long *)(0x50007000 + 0x204))) = (~bakSYSCLKEN);
+N}
+N
+N
+N/*delay function
+NPreFunction Instruction:
+N
+NMOVS    r0,0xxx;    //1 cycle
+NBL      delay;      //4 cycle
+N
+NInFunction Instruction:
+NloopStart
+NSUBS     r0,r0,#1;  //1 cycle
+NBCS      loopStart; //1 or 3 cycle
+NBX		    lr;     //3 cycle
+N
+NLoopNum == 0:   delay == 10 cycle
+NLoopNum == 1:   delay == 14 cycle
+NLoopNum == 2:   delay == 18 cycle
+N.........
+NLoopNum == n:   delay == (10 + 4*n) cycle
+N*/
+N__asm void delay(unsigned int LoopNum)
+N{
+NloopStart
+N    SUBS     r0,r0,#1
+N    BCS      loopStart
+N	BX		    lr
+N}
+N
+N/* Set standby Mode */
+N/************************************************* 
+N  Function:     HED_SetToStandby(void)
+N  Description:  set chip to standby mode		
+N  Calls:              
+N  Input: none
+N  Output:none
+N  Return:
+N  Others: both SYSCLKCFG and SYSCLKEN remain the same before and after the execution of this API
+N*************************************************/ 
+Nvoid HED_SetToStandby(void)
+N{
+N	unsigned int clkBak;
+N	
+N    /* 1. change clock to 7.5MHz */
+N	clkBak = SYSCLKCFG;
+X	clkBak = (*((volatile unsigned long *)(0x50007000 + 0x208)));
+N	if((clkBak & 0x70) == (0x30))
+N	{	
+N		SYSCLKCFG = (0x04 << 4);	//cpu = 15MHz
+X		(*((volatile unsigned long *)(0x50007000 + 0x208))) = (0x04 << 4);	
+N	}
+N	SYSCLKCFG = (0x05 << 4);	//cpu = 7.5MHz
+X	(*((volatile unsigned long *)(0x50007000 + 0x208))) = (0x05 << 4);	
+N	
+N	/* 2. entry standby */
+N	if(STDBY_IS_VALID)
+X	if(((((*((volatile unsigned long *)(0x40001000 + 0x08 ))) & 0x08) == 0) && (((*((volatile unsigned long *)(0x40001000 + 0x14 ))) & 0x02) != 0)))
+N    {
+N		__sev();	//set event reg
+N		__wfe();	//clr event reg	
+N		__wfe();	//set standby
+N    }
+N	
+N	/* 3. retore clock config */
+N	if((clkBak & 0x70) == (0x30))
+N	{	
+N		SYSCLKCFG = (0x04 << 4);	//cpu = 15MHz
+X		(*((volatile unsigned long *)(0x50007000 + 0x208))) = (0x04 << 4);	
+N	}
+N	SYSCLKCFG = clkBak;		
+X	(*((volatile unsigned long *)(0x50007000 + 0x208))) = clkBak;		
+N}
+N

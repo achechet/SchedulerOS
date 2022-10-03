@@ -1,0 +1,13 @@
+--cpu SC000
+".\obj\startup.o"
+".\obj\main.o"
+".\obj\demo_apdu.o"
+".\obj\demo_subfunc.o"
+".\obj\ciu98428f_api_base_nonvm.o"
+".\API\CIU98428F_API_DES.lib"
+".\obj\ciu98428f_api_nvm_stability.o"
+".\obj\ciu98428f_nvm_stability.o"
+--strict --scatter ".\obj\Lesson004.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\lst\Lesson004.map" -o .\obj\Lesson004.axf

@@ -1,0 +1,13 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\Huada-test\CIU98428F V1.0 - en\programming files\CIU98428F_DemoCOS\CIU98428F_DemoCOS.uvproj
+Project File Date:  02/02/2015
+
+<h2>Output:</h2>
+Build target 'CIU98428F_DemoCOS'
+assembling startup.s...
+startup.s: Error: A3903U: Argument 'bi' not permitted for option 'endian'.
+Target not created

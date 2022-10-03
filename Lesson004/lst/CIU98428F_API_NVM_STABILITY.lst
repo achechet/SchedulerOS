@@ -1,0 +1,460 @@
+L 1 "API\CIU98428F_API_NVM_STABILITY.c"
+N/*****************************************************
+N Copyright(C),CEC Huada Electronic Design Co.,Ltd.
+N 
+N File name: CIU98428F_API_NVM_STABILITY.c
+N Author:    	
+N Version:       
+N Date:      	
+N Description:   NVM operation function
+N History:	
+N                
+N******************************************************/
+N#include "CIU98428F_SFR_C.H"
+L 1 ".\INC\CIU98428F_SFR_C.H" 1
+N/******************** (C) COPYRIGHT 2015 HED *************************************
+N* File Name          : CIU98428F_SFR_C.h
+N* Author             : zhangyj
+N* Date First Issued  : 2015-01-16
+N* Description        : 
+N// ------------------------------------------------------------
+N// Modification History:
+N// Version    Date       Author    Modification Description
+N// V0.0      2015-01-16  zhangyj   
+N*********************************************************************************/
+N
+N#ifndef __IO_CIU98428F_H
+N#define __IO_CIU98428F_H
+N
+N/********************************************************************************
+N                      AMBA IP AHB Peripherals Addresse
+N********************************************************************************/
+N/********************************************************************************
+N                             DES Regsiter
+N********************************************************************************/
+N#define DESCON               (*((volatile unsigned long *)(0x50000000 + 0x00 )))
+N#define DESMOD               (*((volatile unsigned long *)(0x50000000 + 0x04 )))
+N#define DESIV                ((volatile unsigned long *)(0x50000000 + 0x08 )) //64bit
+N#define DESDATA              ((volatile unsigned long *)(0x50000000 + 0x10 )) //64bit
+N#define DESKEY1              ((volatile unsigned long *)(0x50000000 + 0x18 )) //64bit
+N#define DESKEY2              ((volatile unsigned long *)(0x50000000 + 0x20 )) //64bit
+N
+N
+N/********************************************************************************
+N                              RNG2 Regsiter
+N********************************************************************************/
+N#define RNG2STR              (*((volatile unsigned long *)(0x50003800 + 0x04 )))
+N#define RNG2OUT              (*((volatile unsigned long *)(0x50003800 + 0x08 )))
+N
+N
+N/********************************************************************************
+N                             CRC Regsiter
+N********************************************************************************/
+N#define CRCCSR               (*((volatile unsigned long *)(0x50005000 + 0x00 )))
+N#define CRCDATA              (*((volatile unsigned long *)(0x50005000 + 0x04 )))
+N#define CRCIV                (*((volatile unsigned long *)(0x50005000 + 0x08 )))
+N
+N
+N/********************************************************************************
+N                             SystemController Regsiter
+N********************************************************************************/
+N// NVM
+N#define SYSNVMSTATUS         (*((volatile unsigned long *)(0x50007000 + 0x80 )))
+N#define SYSNVMMODE           (*((volatile unsigned long *)(0x50007000 + 0x84 )))
+N#define SYSNVMCON            (*((volatile unsigned long *)(0x50007000 + 0x88 )))
+N#define SYSNVMPBSTADDR       (*((volatile unsigned long *)(0x50007000 + 0x98 )))
+N#define SYSNVMPBLEN          (*((volatile unsigned long *)(0x50007000 + 0x9C )))
+N#define SYSNVMSDPK1          (*((volatile unsigned long *)(0x50007000 + 0xA0 )))
+N#define SYSNVMSDPK2          (*((volatile unsigned long *)(0x50007000 + 0xA4 )))
+N#define SYSNVMSDPK3          (*((volatile unsigned long *)(0x50007000 + 0xA8 )))
+N
+N
+N// RSTMU
+N#define SYSRSTFLAG           (*((volatile unsigned long *)(0x50007000 + 0x184)))
+N#define SYSRSTCFG            (*((volatile unsigned long *)(0x50007000 + 0x188)))
+N
+N
+N// CKMU
+N#define SYSCLKEN             (*((volatile unsigned long *)(0x50007000 + 0x200)))
+N#define SYSCLKCLR            (*((volatile unsigned long *)(0x50007000 + 0x204)))
+N#define SYSCLKCFG            (*((volatile unsigned long *)(0x50007000 + 0x208)))
+N
+N
+N// POWMU
+N#define SYSPCON1             (*((volatile unsigned long *)(0x50007000 + 0x280)))
+N
+N
+N// INTC
+N#define SYSIRQLR             (*((volatile unsigned long *)(0x50007000 + 0x380)))
+N#define SYSNMICON            (*((volatile unsigned long *)(0x50007000 + 0x384)))
+N
+N
+N// SEC
+N#define SECCTR               (*((volatile unsigned long *)(0x50007000 + 0x400)))
+N#define SECHWRSTFLG          (*((volatile unsigned long *)(0x50007000 + 0x41C)))
+N#define SECBUSY              (*((volatile unsigned long *)(0x50007000 + 0x420)))
+N#define SECRBCLR             (*((volatile unsigned long *)(0x50007000 + 0x424)))
+N#define SECREGPRT            (*((volatile unsigned long *)(0x50007000 + 0x428)))
+N#define SECRNDSTOP           (*((volatile unsigned long *)(0x50007000 + 0x434)))
+N
+N
+N/********************************************************************************
+N                             TIMER Regsiter
+N********************************************************************************/
+N#define TIMER0LOAD           (*((volatile unsigned long *)(0x40000800 + 0x00 )))
+N#define TIMER0VALUE          (*((volatile unsigned long *)(0x40000800 + 0x04 )))
+N#define TIMER0CONTROL        (*((volatile unsigned long *)(0x40000800 + 0x08 )))
+N#define TIMER0IS             (*((volatile unsigned long *)(0x40000800 + 0x0C )))
+N#define TIMER1LOAD           (*((volatile unsigned long *)(0x40000800 + 0x20 )))
+N#define TIMER1VALUE          (*((volatile unsigned long *)(0x40000800 + 0x24 )))
+N#define TIMER1CONTROL        (*((volatile unsigned long *)(0x40000800 + 0x28 )))
+N#define TIMER1IS             (*((volatile unsigned long *)(0x40000800 + 0x2C )))
+N
+N/********************************************************************************
+N                             SCI Regsiter
+N********************************************************************************/
+N#define SCISBUF              (*((volatile unsigned long *)(0x40001000 + 0x00 )))
+N#define SCISCON              (*((volatile unsigned long *)(0x40001000 + 0x04 )))
+N#define SCISSR               (*((volatile unsigned long *)(0x40001000 + 0x08 )))
+N#define SCISCNT              (*((volatile unsigned long *)(0x40001000 + 0x0C )))
+N#define SCITXFCR             (*((volatile unsigned long *)(0x40001000 + 0x10 )))
+N#define SCIRXFCR             (*((volatile unsigned long *)(0x40001000 + 0x14 )))
+N#define SCITA1               (*((volatile unsigned long *)(0x40001000 + 0x18 )))
+N#define SCIS60CON            (*((volatile unsigned long *)(0x40001000 + 0x1C )))
+N
+N
+N/********************************************************************************
+N                             RNG Regsiter
+N********************************************************************************/
+N#define RNG1STR              (*((volatile unsigned long *)(0x40002800 + 0x30 )))
+N#define RNG1OUT              (*((volatile unsigned long *)(0x40002800 + 0x34 )))
+N#define RNG1TRNGTST          (*((volatile unsigned long *)(0x40002800 + 0x100)))
+N#define RNG1TRNGTDO          (*((volatile unsigned long *)(0x40002800 + 0x104)))
+N
+N/********************************************************************************
+N                             GPIO Regsiter
+N********************************************************************************/
+N#define GPIODATA              (*((volatile unsigned long *)(0x40003000 + 0x00 )))
+N#define GPIODIR               (*((volatile unsigned long *)(0x40003000 + 0x04 )))
+N
+N
+N/********************************************************************************
+N                             PPB Regsiter
+N********************************************************************************/
+N#define ACTLR                 (*((volatile unsigned long *)( 0xE000E008	)))
+N#define NVIC_ISER             (*((volatile unsigned long *)( 0xE000E100	)))
+N#define NVIC_ICER             (*((volatile unsigned long *)( 0xE000E180	)))
+N#define NVIC_ISPR             (*((volatile unsigned long *)( 0xE000E200	)))
+N#define NVIC_ICPR             (*((volatile unsigned long *)( 0xE000E280	)))
+N#define NVIC_IPR0             (*((volatile unsigned long *)( 0xE000E400	)))
+N#define NVIC_IPR1             (*((volatile unsigned long *)( 0xE000E404	)))
+N#define NVIC_IPR2             (*((volatile unsigned long *)( 0xE000E408	)))
+N#define NVIC_IPR3             (*((volatile unsigned long *)( 0xE000E40C	)))
+N#define NVIC_IPR4             (*((volatile unsigned long *)( 0xE000E410	)))
+N#define NVIC_IPR5             (*((volatile unsigned long *)( 0xE000E414	)))
+N#define NVIC_IPR6             (*((volatile unsigned long *)( 0xE000E418	)))
+N#define NVIC_IPR7             (*((volatile unsigned long *)( 0xE000E41C	)))
+N#define CPUID                 (*((volatile unsigned long *)( 0xE000ED00	)))
+N#define ICSR                  (*((volatile unsigned long *)( 0xE000ED04	)))
+N#define VTOR                  (*((volatile unsigned long *)( 0xE000ED08	)))
+N#define AIRCR                 (*((volatile unsigned long *)( 0xE000ED0C	)))
+N#define SCR                   (*((volatile unsigned long *)( 0xE000ED10	)))
+N#define CCR                   (*((volatile unsigned long *)( 0xE000ED14	)))
+N#define SHPR2                 (*((volatile unsigned long *)( 0xE000ED1C	)))
+N#define SHPR3                 (*((volatile unsigned long *)( 0xE000ED20	)))
+N#define SFCR                  (*((volatile unsigned long *)( 0xE000EF90	)))
+N
+N/********************************************************************************
+N                             Interrupt Source
+N********************************************************************************/
+N#define     IRQ_TMR0                0
+N#define     IRQ_TMR1                1
+N#define     IRQ_RNG1                7
+N#define     IRQ_7816TX              9
+N#define     IRQ_7816RX              10
+N#define     IRQ_7816FIFO            11
+N
+N#endif  /* End of __IO_CIU98428F_H */
+L 13 "API\CIU98428F_API_NVM_STABILITY.c" 2
+N
+N#define PAGE_SIZE 		        0x200
+N
+N#define NVMEPKEY	 			0x57AF6C00
+N#define NVM_SECTOR_ERASE		0x09		//block erase
+N#define NVM_PAGE_ERASE			0x0A		//page erase
+N#define NVM_WORD_WRITE			0x0E		//word write
+N#define NVM_PAGE_WRITE			0x0F		//page write
+N
+N#define SWITCHTAG1	0xAA55AA55
+N#define SWITCHTAG2 	0x55AA55AA
+N#define SWITCHTAG3 	0xA5A55A5A
+N
+N#define NVM_SUCCESS 	0
+N#define NVM_FAILED		0xFFFFFFFF
+N
+Nunsigned int	G_fCData1;
+Nunsigned int	G_fCData2;
+Nunsigned int	G_fCData3;
+N
+Nextern void Reset_Handler(void);
+Nextern void setWrMode(unsigned int wrMode);
+N
+N/************************************************* 
+N  Function:       closeWrSwitch() 
+N  Description:   close NVM operation's switch
+N  Calls:          
+N  Called By:      
+N  Input:          none
+N  Output:         none 
+N  Return:         none
+N  Others:         none 
+N*************************************************/ 
+Nvoid closeWrSwitch(void)
+N{ 	// close NVM operation's switch
+N	G_fCData1 = 0;
+N	G_fCData2 = 0;
+N	G_fCData3 = 0;	
+N}
+N/************************************************* 
+N  Function:       openWrSwitch() 
+N  Description:     open NVM operation's switch
+N  Calls:          
+N  Called By:      
+N  Input:          none
+N  Output:         none 
+N  Return:         none
+N  Others:         none 
+N*************************************************/ 
+Nvoid openWrSwitch(void)
+N{ 	// open NVM operation's switch
+N	
+N	G_fCData1 = SWITCHTAG1;	
+X	G_fCData1 = 0xAA55AA55;	
+N	G_fCData2 = SWITCHTAG2;
+X	G_fCData2 = 0x55AA55AA;
+N	G_fCData3 = SWITCHTAG3;	
+X	G_fCData3 = 0xA5A55A5A;	
+N}
+N/************************************************* 
+N  Function:       chkWrSwitch() 
+N  Description:     check NVM operation's switch
+N  Calls:          
+N  Called By:      
+N  Input:          none
+N  Output:         none 
+N  Return:         none
+N  Others:         none 
+N*************************************************/ 
+Nvoid chkWrSwitch(void)
+N{ 	// check NVM operation's switch
+N	
+N	if ((G_fCData1 == SWITCHTAG1) && (G_fCData2 == SWITCHTAG2)
+X	if ((G_fCData1 == 0xAA55AA55) && (G_fCData2 == 0x55AA55AA)
+N	        && (G_fCData3 == SWITCHTAG3))
+X	        && (G_fCData3 == 0xA5A55A5A))
+N	{		
+N		;//none
+N	}
+N	else
+N	{
+N		Reset_Handler();				
+N	}	
+N}
+N
+N/************************************************* 
+N  Function:   	void wr_SDPKey(void) 
+N  Description:	write SDP Key of NVM
+N  Calls:          
+N  Called By:      
+N  Input:      	none
+N  Output:    	none 
+N  Return:     	none
+N  Others:     	none 
+N*************************************************/ 
+Nvoid wr_SDPKey(void)
+N{
+N	SYSNVMSDPK1 = SWITCHTAG1;
+X	(*((volatile unsigned long *)(0x50007000 + 0xA0 ))) = 0xAA55AA55;
+N	SYSNVMSDPK2 = SWITCHTAG2;
+X	(*((volatile unsigned long *)(0x50007000 + 0xA4 ))) = 0x55AA55AA;
+N	SYSNVMSDPK3 = SWITCHTAG3;
+X	(*((volatile unsigned long *)(0x50007000 + 0xA8 ))) = 0xA5A55A5A;
+N	return;
+N}
+N
+N/************************************************* 
+N  Function:   	unsigned int HED_FlashErasePage_St(unsigned int FlashAddr)
+N  Description:	Flash page erase with check
+N  Calls:          
+N  Input:       	FlashAddr: Flash address in erase page.
+N  Output:		none          
+N  Return:		0: sucess
+N				0xffffffff: failed
+N  Others:          
+N*************************************************/ 
+Nunsigned int HED_FlashErasePage_St(unsigned int FlashAddr)
+N{
+N	unsigned int i;
+N	
+N	FlashAddr &= ~0x1FF;//page aligned
+N
+N	__disable_irq();
+N	
+N	wr_SDPKey();
+N	*(unsigned int *)FlashAddr = 0xFFFFFFFF;
+N	setWrMode(NVMEPKEY | NVM_PAGE_ERASE);
+X	setWrMode(0x57AF6C00 | 0x0A);
+N
+N	__enable_irq();
+N	
+N	for(i = 0; i < PAGE_SIZE/4; i++)
+X	for(i = 0; i < 0x200/4; i++)
+N	{
+N		if(*((unsigned int*)FlashAddr + i) != 0xFFFFFFFF)
+N		{
+N			return NVM_FAILED;
+X			return 0xFFFFFFFF;
+N		}
+N	}
+N	return NVM_SUCCESS;
+X	return 0;
+N}
+N
+N/************************************************* 
+N  Function:   	void HED_FlashErasePageNoChk_St(unsigned int FlashAddr)
+N  Description:	Flash page erase without check
+N  Calls:          
+N  Input:       	FlashAddr: Flash address in erase page.
+N  Output:		none          
+N  Return:		none
+N  Others:          
+N*************************************************/ 
+Nvoid HED_FlashErasePageNoChk_St(unsigned int FlashAddr)
+N{
+N	FlashAddr &= ~0x1FF;//page aligned
+N	__disable_irq();
+N	wr_SDPKey();
+N	*((unsigned int *)FlashAddr) = 0xFFFFFFFF;
+N	setWrMode(NVMEPKEY | NVM_PAGE_ERASE);
+X	setWrMode(0x57AF6C00 | 0x0A);
+N	__enable_irq();
+N}
+N
+N/************************************************* 
+N  Function:   	void HED_FlashEraseSectorNoChk_St(unsigned int FlashAddr)
+N  Description:	Flash sector erase without check
+N  Calls:          
+N  Input:       	FlashAddr: Flash address in erase sector.
+N  Output:		none          
+N  Return:		none
+N  Others:          
+N*************************************************/ 
+Nvoid HED_FlashEraseSectorNoChk_St(unsigned int FlashAddr)
+N{
+N	FlashAddr &= ~0xFFF;//sector aligned
+N	__disable_irq();
+N	wr_SDPKey();
+N	*((unsigned int *)FlashAddr) = 0xFFFFFFFF;
+N	setWrMode(NVMEPKEY | NVM_SECTOR_ERASE);
+X	setWrMode(0x57AF6C00 | 0x09);
+N	__enable_irq();
+N}
+N
+N/************************************************* 
+N  Function:   	unsigned int FlashWriteNWord_St (unsigned int FlashAddr, unsigned int * DataBuf, unsigned int DataLen)
+N  Description:	Flash write N words in half page
+N  Calls:          
+N  Input:       	FlashAddr: Flash write address, must be 4bytes align;
+N				DataBuf: data address which would be write to Flash, must be 4bytes align;
+N				DataLen: word length of write data
+N  Output:		none          
+N  Return:		0: sucess
+N				0xffffffff: failed
+N  Others:          
+N*************************************************/  
+Nunsigned int FlashWriteNWord_St (unsigned int FlashAddr, unsigned int * DataBuf, unsigned int DataLen)
+N{
+N	unsigned int i;
+N	
+N	FlashAddr &= ~0xFF;	//half page aligned
+N
+N	__disable_irq();
+N	
+N	wr_SDPKey();
+N	SYSNVMPBSTADDR = (unsigned int)DataBuf;
+X	(*((volatile unsigned long *)(0x50007000 + 0x98 ))) = (unsigned int)DataBuf;
+N	SYSNVMPBLEN = DataLen - 1;
+X	(*((volatile unsigned long *)(0x50007000 + 0x9C ))) = DataLen - 1;
+N	*((unsigned int *)FlashAddr) = 0xFFFFFFFF;
+N	setWrMode(NVMEPKEY | NVM_PAGE_WRITE);
+X	setWrMode(0x57AF6C00 | 0x0F);
+N	
+N	__enable_irq();
+N	
+N	for(i = 0; i < DataLen; i++)
+N	{
+N		if(*((unsigned int*)FlashAddr + i) != *(DataBuf + i))
+N		{
+N			return NVM_FAILED;
+X			return 0xFFFFFFFF;
+N		}
+N	}
+N	return NVM_SUCCESS;
+X	return 0;
+N}
+N
+N/************************************************* 
+N  Function:   	unsigned int HED_FlashWritePage_St (unsigned int FlashAddr, unsigned int * DataBuf)
+N  Description:	Flash page write
+N  Calls:       	HED_FlashWriteNWord_St
+N  Input:       	FlashAddr: Flash write address, must be 4bytes align;
+N				DataBuf: data address which would be write to Flash, must be 4bytes align.	
+N  Output:		none          
+N  Return:		0: sucess
+N				0xffffffff: failed
+N  Others:          
+N*************************************************/  
+Nunsigned int HED_FlashWritePage_St (unsigned int FlashAddr, unsigned int * DataBuf)
+N{
+N	FlashAddr &= ~0x1FF;//page aligned
+N	
+N	if(NVM_SUCCESS != FlashWriteNWord_St(FlashAddr, DataBuf, PAGE_SIZE/8))
+X	if(0 != FlashWriteNWord_St(FlashAddr, DataBuf, 0x200/8))
+N		return NVM_FAILED;
+X		return 0xFFFFFFFF;
+N	if(NVM_SUCCESS != FlashWriteNWord_St(FlashAddr+PAGE_SIZE/2, DataBuf+PAGE_SIZE/8, PAGE_SIZE/8))
+X	if(0 != FlashWriteNWord_St(FlashAddr+0x200/2, DataBuf+0x200/8, 0x200/8))
+N		return NVM_FAILED;
+X		return 0xFFFFFFFF;
+N	
+N	return NVM_SUCCESS;
+X	return 0;
+N}
+N
+N
+N/************************************************* 
+N  Function:   	unsigned int HED_FlashWriteWord_St (unsigned int FlashAddr, unsigned int DataValue)
+N  Description:	Flash write one word
+N  Calls:          
+N  Input:       	FlashAddr: Flash write address, must be 4bytes align;
+N				DataValue: one word data;
+N  Output:		none          
+N  Return:		0: sucess
+N				0xffffffff: failed
+N  Others:          
+N*************************************************/  
+Nunsigned int HED_FlashWriteWord_St (unsigned int FlashAddr, unsigned int DataValue)
+N{
+N	__disable_irq();
+N 	wr_SDPKey();
+N	*(unsigned int *)FlashAddr = DataValue;
+N	setWrMode(NVMEPKEY | NVM_WORD_WRITE);
+X	setWrMode(0x57AF6C00 | 0x0E);
+N	__enable_irq();
+N
+N    if (*((unsigned int *)FlashAddr) != DataValue)
+N    		return NVM_FAILED;
+X    		return 0xFFFFFFFF;
+N	return NVM_SUCCESS;  
+X	return 0;  
+N}

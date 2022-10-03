@@ -1,0 +1,11 @@
+.\obj\demo_subfunc.o: SRC\DEMO_SubFunc.c
+.\obj\demo_subfunc.o: SRC\../inc/declare.h
+.\obj\demo_subfunc.o: C:\Keil\ARM\ARMCC\bin\..\include\absacc.h
+.\obj\demo_subfunc.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+.\obj\demo_subfunc.o: SRC\../inc/CIU98428F_SFR_C.h
+.\obj\demo_subfunc.o: SRC\../inc/type_Define.h
+.\obj\demo_subfunc.o: .\API\CIU98428F_API_Base_NoNVM.h
+.\obj\demo_subfunc.o: .\API\CIU98428F_API_DES.h
+.\obj\demo_subfunc.o: .\API\CIU98428F_API_NVM_STABILITY.h
+.\obj\demo_subfunc.o: SRC\../inc/DEMO_SubFunc.h
+.\obj\demo_subfunc.o: SRC\../inc/DEMO_APDU.h

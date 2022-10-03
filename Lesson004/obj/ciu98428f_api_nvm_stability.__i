@@ -1,0 +1,6 @@
+-c --cpu SC000 -D__EVAL --bi -g -O0 --apcs=interwork -I.\INC -I.\API
+-I C:\Keil\ARM\RV31\INC
+-I C:\Keil\ARM\CMSIS\Include
+-I C:\Keil\ARM\Device\ARM\ARMSC000\Include
+
+-o .\obj\ciu98428f_api_nvm_stability.o --list_dir ".\\lst\\" --list --omf_browse .\obj\ciu98428f_api_nvm_stability.crf --depend .\obj\ciu98428f_api_nvm_stability.d "API\CIU98428F_API_NVM_STABILITY.c"

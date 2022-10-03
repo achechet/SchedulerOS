@@ -1,0 +1,26 @@
+*** Creating Trace Output File '.\obj\CIU98428F_DemoCOS.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\obj\startup.o"'
+### List of Objects: adding '".\obj\main.o"'
+### List of Objects: adding '".\obj\demo_apdu.o"'
+### List of Objects: adding '".\obj\demo_subfunc.o"'
+### List of Objects: adding '".\obj\ciu98428f_api_base_nonvm.o"'
+### List of Objects: adding '".\API\CIU98428F_API_DES.lib"'
+### List of Objects: adding '".\obj\ciu98428f_api_nvm_stability.o"'
+### List of Objects: adding '".\obj\ciu98428f_nvm_stability.o"'
+### ADS-LD Command completed:
+--cpu SC000 ".\obj\startup.o" ".\obj\main.o" ".\obj\demo_apdu.o" ".\obj\demo_subfunc.o" ".\obj\ciu98428f_api_base_nonvm.o" E:\项目SVN\C98C420N\trunk\doc\产品资料\CIU98428F_DemoCOS\API\CIU98428F_API_DES.lib ".\obj\ciu98428f_api_nvm_stability.o" ".\obj\ciu98428f_nvm_stability.o" --strict --scatter ".\obj\CIU98428F_DemoCOS.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\lst\CIU98428F_DemoCOS.map" -o .\obj\CIU98428F_DemoCOS.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\obj\CIU98428F_DemoCOS.axf'
+### ADS-LD Command File: '.\obj\CIU98428F_DemoCOS.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\obj\CIU98428F_DemoCOS.lnp', Handle=0x00000254
+### Writing '.lnp' file
+### ADS-LD Command file '.\obj\CIU98428F_DemoCOS.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.
