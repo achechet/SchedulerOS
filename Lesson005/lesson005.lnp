@@ -1,0 +1,7 @@
+--cpu SC000
+".\ciu98m25_startup.o"
+".\main.o"
+--diag_suppress 6314 --strict --scatter ".\lesson005.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\lesson005.map" -o .\lesson005.axf
