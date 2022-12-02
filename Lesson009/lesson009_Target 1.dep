@@ -1,0 +1,3 @@
+Dependencies for Project 'lesson009', Target 'Target 1': (DO NOT MODIFY !)
+F (.\main.c)(0x6389C6BB)(-c --cpu SC000 -D__EVAL --bi -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+F (C:\Keil\ARM\Device\HED\CIU98M25\Source\CIU98M25_Startup.s)(0x5D2F1BCA)(--cpu SC000 --bi --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include--list .\ciu98m25_startup.lst --xref -o .\ciu98m25_startup.o --depend .\ciu98m25_startup.d)
